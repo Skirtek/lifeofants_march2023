@@ -21,7 +21,6 @@ public class Drone extends Ant implements Moveable {
     }
 
 
-
     @Override
     public Image getImage(double size) {
         if (Objects.isNull(image)) {
@@ -36,13 +35,15 @@ public class Drone extends Ant implements Moveable {
         Queen queen = Queen.getInstance(colonyWidth, colonyHeight);
         Position queenPosition = queen.getPosition();
         Position myPosition = this.getPosition();
+
         Vector vector
                 = new Vector(myPosition.getX() - queenPosition.getX(), myPosition.getY() - queenPosition.getY());
+
         Direction nextDirection;
-        if (vector.getY() == 0) {
-            nextDirection = vector.getX() > 0 ? Direction.LEFT : Direction.RIGHT;
+        if (vector.y() == 0) {
+            nextDirection = vector.x() > 0 ? Direction.LEFT : Direction.RIGHT;
         } else {
-            nextDirection = vector.getY() > 0 ? Direction.DOWN : Direction.UP;
+            nextDirection = vector.y() > 0 ? Direction.DOWN : Direction.UP;
         }
         int newX = getPosition().getX() + nextDirection.getValue().getX();
         int newY = getPosition().getY() + nextDirection.getValue().getY();

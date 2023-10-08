@@ -6,15 +6,11 @@ import com.codecool.lifeofants.utils.Direction;
 import javafx.scene.image.Image;
 import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class Soldier extends Ant implements Moveable {
     private static Image image;
     private Direction currentDirection = Direction.UP;
-
 
     public Soldier(@NonNull Position position) {
         super(position);

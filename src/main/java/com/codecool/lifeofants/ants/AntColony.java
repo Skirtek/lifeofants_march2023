@@ -75,17 +75,15 @@ public class AntColony implements Colony<Ant> {
         colony.add(Queen.getInstance(width, height));
 
         colonyConfiguration.forEach((antTypeClass, antAmount) -> {
-            Position nextPosition = generateRandomAntPosition();
-
             // 20
             // 0 1 2 ... 19
             // new Drone0(), new Drone1(), ... new Drone19()
             if (antTypeClass.equals(Drone.class)) {
-                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Drone(nextPosition, width, height)));
+                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Drone(generateRandomAntPosition(), width, height)));
             } else if (antTypeClass.equals(Worker.class)) {
-                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Worker(nextPosition)));
+                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Worker(generateRandomAntPosition())));
             } else if (antTypeClass.equals(Soldier.class)) {
-                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Soldier(nextPosition)));
+                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Soldier(generateRandomAntPosition())));
             } else {
                 throw new IllegalArgumentException(String.format("Ant %s is not supported!", antTypeClass.getSimpleName()));
             }
