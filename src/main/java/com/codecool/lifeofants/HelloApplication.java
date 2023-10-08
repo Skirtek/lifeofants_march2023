@@ -13,7 +13,9 @@ import java.util.Map;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        AntColony colony = new AntColony(40, 20);
+        int colonyWidth = 40;
+        int colonyHeight = 20;
+        AntColony colony = new AntColony(colonyWidth, colonyHeight);
 
         Map<Class<? extends Ant>, Integer> colonyConfiguration = new HashMap<>();
         colonyConfiguration.put(Worker.class, 40);
@@ -22,7 +24,7 @@ public class HelloApplication extends Application {
 
         colony.generateNewColony(colonyConfiguration);
 
-        var info = colony.getInfoAboutColonyStructure();
+
     }
 
     public static void main(String[] args) {

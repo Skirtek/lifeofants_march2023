@@ -1,6 +1,7 @@
 package com.codecool.lifeofants.ants;
 
 import com.codecool.lifeofants.Colony;
+import com.codecool.lifeofants.Moveable;
 import com.codecool.lifeofants.Position;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,15 @@ public class AntColony implements Colony<Ant> {
 
     @Override
     public void update() {
+        colony.forEach(ant -> {
+           if(ant instanceof Queen) {
+               return;
+           }
+           if(ant instanceof Moveable moveableAnt) {
+               Position nextPosition = moveableAnt.getNextPosition();
+               ant.setPosition(nextPosition);
+           }
+        });
 
     }
 
@@ -71,7 +81,7 @@ public class AntColony implements Colony<Ant> {
             // 0 1 2 ... 19
             // new Drone0(), new Drone1(), ... new Drone19()
             if (antTypeClass.equals(Drone.class)) {
-                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Drone(nextPosition)));
+                IntStream.range(0, antAmount).forEach(ant -> colony.add(new Drone(nextPosition, width, height)));
             } else if (antTypeClass.equals(Worker.class)) {
                 IntStream.range(0, antAmount).forEach(ant -> colony.add(new Worker(nextPosition)));
             } else if (antTypeClass.equals(Soldier.class)) {

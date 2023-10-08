@@ -1,13 +1,20 @@
 package com.codecool.lifeofants.ants;
 
+import com.codecool.lifeofants.Moveable;
 import com.codecool.lifeofants.Position;
+import com.codecool.lifeofants.utils.Direction;
 import javafx.scene.image.Image;
 import lombok.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public class Soldier extends Ant {
+public class Soldier extends Ant implements Moveable {
     private static Image image;
+    private Direction currentDirection = Direction.UP;
+
 
     public Soldier(@NonNull Position position) {
         super(position);
@@ -20,5 +27,20 @@ public class Soldier extends Ant {
         }
 
         return image;
+    }
+
+    @Override
+    public Position getNextPosition() {
+        int newX = getPosition().getX() + currentDirection.getValue().getX();
+        int newY = getPosition().getY() + currentDirection.getValue().getY();
+
+        switch (currentDirection) {
+            case UP -> currentDirection = Direction.RIGHT;
+            case RIGHT -> currentDirection = Direction.DOWN;
+            case DOWN -> currentDirection = Direction.LEFT;
+            case LEFT -> currentDirection = Direction.UP;
+        }
+
+        return new Position(newX, newY);
     }
 }
