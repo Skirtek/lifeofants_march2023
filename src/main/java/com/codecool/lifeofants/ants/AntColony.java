@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 public class AntColony implements Colony<Ant> {
+    private final static Random random = new Random();
+
     @Getter
     private final int width, height;
 
@@ -65,6 +67,9 @@ public class AntColony implements Colony<Ant> {
         colonyConfiguration.forEach((antTypeClass, antAmount) -> {
             Position nextPosition = generateRandomAntPosition();
 
+            // 20
+            // 0 1 2 ... 19
+            // new Drone0(), new Drone1(), ... new Drone19()
             if (antTypeClass.equals(Drone.class)) {
                 IntStream.range(0, antAmount).forEach(ant -> colony.add(new Drone(nextPosition)));
             } else if (antTypeClass.equals(Worker.class)) {
@@ -78,8 +83,6 @@ public class AntColony implements Colony<Ant> {
     }
 
     private Position generateRandomAntPosition() {
-        Random random = new Random();
-
         int x = random.nextInt(width);
         int y = random.nextInt(height);
 

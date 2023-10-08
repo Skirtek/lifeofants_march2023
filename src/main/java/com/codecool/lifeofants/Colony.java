@@ -1,13 +1,14 @@
 package com.codecool.lifeofants;
 
-import com.codecool.lifeofants.ants.Ant;
-
 import java.util.List;
 import java.util.Map;
 
 public interface Colony<T extends Animal> {
     List<T> getColony();
 
+    // Drone.class: 20
+    // Soldier.class: 10
+    // Worker.class: 70
     Map<Class<? extends T>, Integer> getInfoAboutColonyStructure();
 
     void update();
