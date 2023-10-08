@@ -54,15 +54,29 @@ public class AntColony implements Colony<Ant> {
     @Override
     public void update() {
         colony.forEach(ant -> {
-           if(ant instanceof Queen) {
-               return;
-           }
-           if(ant instanceof Moveable moveableAnt) {
-               Position nextPosition = moveableAnt.getNextPosition();
-               ant.setPosition(nextPosition);
-           }
+            if (ant instanceof Queen) {
+                return;
+            }
+            boolean isMoveFound = false;
+            if (ant instanceof Moveable moveableAnt) {
+                do {
+                    Position nextPosition = moveableAnt.getNextPosition();
+                    if (isMoveInsideColony(nextPosition)) {
+                        ant.setPosition(nextPosition);
+                        isMoveFound = true;
+                    }
+                }
+                while (!isMoveFound);
+            }
         });
 
+    }
+
+    private boolean isMoveInsideColony(Position positionToCheck) {
+        return positionToCheck.getX() < this.width
+                && positionToCheck.getX() > 0
+                && positionToCheck.getY() < this.height
+                && positionToCheck.getY() > 0;
     }
 
     // Drone.class: 20
